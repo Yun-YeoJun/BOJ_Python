@@ -7,8 +7,8 @@ l = [0] * n # score of each stair
 for i in range(n):
     l[i] = int(stdin.readline())
 
-result = [-1] * (n - 1) # reset to -1
-cnt = [0] * (n - 1)
+result = [-1] * (n) # reset to -1
+cnt = [0] * (n)
 cur = 0
 
 l = list(reversed(l))
@@ -32,4 +32,4 @@ for i in range(2, n-1):
     else:
         result[i] = r2 + l[i + 1]
 
-print(result[n-2])
+print(result[n-1])
