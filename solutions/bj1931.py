@@ -5,14 +5,19 @@ n = int(stdin.readline())
 l = []
 
 for i in range(n):
-    t1, t2 = map(int, stdin.readline().split())
-    t3 = abs(t1-t2)
-    l.append([t1,t2,t3])
+    l.append(list(map(int, stdin.readline().split())))
 
+l.sort(key = lambda x:(x[1], x[0]))
 
+startTime, finishTime = l[0]
+result = 1
+del l[0]
 
-l.sort(key = lambda x:(x[0],x[2]))
+for i in l:
+    tempStartTime, tempFinishTime = i
+    if tempStartTime >= finishTime:
+        result += 1
+        startTime = tempStartTime
+        finishTime = tempFinishTime
 
-result = 0
-
-print(l)
+print(result)
