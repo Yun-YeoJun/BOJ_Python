@@ -3,10 +3,9 @@ from sys import stdin
 n = int(stdin.readline())
 m = int(stdin.readline())
 
-channel = 100
 button = [i for i in range(10)]
 delList = []
-result = abs(channel - n)
+result = abs(100 - n)
 if m != 0:
     delList = list(map(int,stdin.readline().split()))
 
@@ -26,7 +25,6 @@ for i in range(1000000):
     temp = i
 
     if abs(temp - n) + len(str(temp)) < result:
-        channel = temp
         result = abs(temp - n) + len(str(temp))
 
 print(result)
