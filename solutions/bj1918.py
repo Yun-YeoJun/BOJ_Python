@@ -2,46 +2,34 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-s = input().strip()
+l = list(input().strip())
 
 stack = deque()
 
-for i in s:
+cnt = 0
 
-    if 'A' <= i <= 'Z': # i가 알파벳이라면
+priority = {"+":2,"-":2,"*":1,"/":1}
+
+for i in l:
+    if "A" <= i <= "Z":
         print(i,end="")
-
-    else: # i가 기호라면
-
-        if len(stack) != 0:
-            if i == ")":
-                while len(stack) != 0 and stack[len(stack) - 1] != "(":
-                    print(stack.pop(),end="")
-                if len(stack) != 0:
-                    stack.pop()
-                if len(stack) != 0 and stack[len(stack) - 1] != "(":
-                    print(stack.pop(),end="")
-                while len(stack) != 0 and stack[len(stack) - 1] != ")":
-                    print(stack.pop(),end="")
-            elif i == "(":
-                stack.append(i)
-            elif len(stack) != 0 and stack[len(stack) - 1] in ["+","-"]:
-                if i in ["+","-"]:
-                    stack.append(i)
-                else:
-                    stack.append(i)
-            elif len(stack) != 0 and stack[len(stack) - 1] in ["*","/"]:
-                if i in ["+","-"]:
-                    while len(stack) != 0: # and stack[len_of_stack - 1] == ""
-                        print(stack.pop(),end="")
-                    stack.append(i)
-                else:
-                    stack.append(i)
-            else:
-                stack.append(i)
-        
-        else:
+    else:
+        if len(stack) == 0:
             stack.append(i)
+        elif i == "(":
+            stack.append(i)
+            cnt += 1
+        elif i == ")":
+            temp = stack.pop()
+            while temp != "(":
+                print(temp,end="")
+                temp = stack.pop()
+            cnt -= 1
+        else:
+            while len(stack) > 0 and stack[len(stack) - 1] in priority and priority[stack[len(stack) - 1]] <= priority[i]:
+                print(stack.pop(),end="")
+            stack.append(i)
+
 
 
 while len(stack) != 0:
